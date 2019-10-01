@@ -9,38 +9,49 @@
  */
 
 public class InPlaceIntHeapSort {
-    // Test class
-    public static void main(String[] args) {
-        int[] array = {4, 7, 2, 1, 3};
-        heapSort(array);
-        for (int i : array) {
-            System.out.println(i);
-        }
-    }
     public static void heapSort(int[] array) {
         int n = array.length; // Store length of array in integer variable n
 
         // Part I: Turn the array into a max-heap
-        for (int i = 1; i <= n - 1; i++) {
-            // Declare int variable to store index of parent
-            int parentIndex = (i - 1) / 2;
-
-            // If element at i is greater than parent, "sift up" by swapping element
-            if (array[i] > array[parentIndex]) {
-                // Store current element in int variable
-                int temp = array[i];
-
-                // Swap elements
-                array[i] = array[parentIndex];
-                array[parentIndex] = temp;
-            } else { // Max heap condition satisfied
-                break;
-            }
+        for (int i = n / 2; i >= 0; i--) {
+            makeHeap(array, i, n);
         }
 
         // Part II: Repeatedly extract the max element from the heap
-        for (int i = n - 1; i >=  1; i--) {
+        for (int i = n - 1; i >= 0; i--) {
+            // Swap root with the end of the array
+            int temp = array[0];
+            array[0] = array[i];
+            array[i] = temp;
 
+            // Recursively make a heap out of the remainder of the invalid heap
+            makeHeap(array, 0, i);
+        }
+    }
+
+    // Recursive function used to create a heap out of a complete binary tree
+    static void makeHeap(int[] array, int i, int n) {
+        // Create variables to store left and right child indices, and max index
+        int leftChildIndex = 2 * i + 1;
+        int rightChildIndex = 2 * i + 2;
+        int maxIndex = i;
+
+        // If left child is greater, set max index equal to left child index
+        if (leftChildIndex <= n - 1 && array[leftChildIndex] > array[maxIndex]) {
+            maxIndex = leftChildIndex;
+        }
+
+        // If right child is greater, set max index equal to right child index
+        if (rightChildIndex <= n - 1 && array[rightChildIndex] > array[maxIndex]) {
+            maxIndex = rightChildIndex;
+        }
+
+        // If max index is already greater than both children, recursively call
+        if (maxIndex != i) {
+            int tempElement = array[maxIndex];
+            array[maxIndex] = array[i];
+            array[i] = tempElement;
+            makeHeap(array, maxIndex, n);
         }
     }
 }

@@ -35,11 +35,11 @@ public class TestSorting {
 			copy = copyArray(randomArray);
 			testObjectBasedHeapSort(copy, false);
 			
-			/* In place heap sort tests
+			// In place heap sort tests
 			testInPlaceHeapSort(orderedArray, true);
 			copy = copyArray(randomArray);
 			testInPlaceHeapSort(copy, false);
-			*/
+
 		}
 		
 		output("Done!");
@@ -67,7 +67,7 @@ public class TestSorting {
 			System.exit(1);
 		}
 	}
-	/*
+
 	static void testInPlaceHeapSort(int[] array, boolean ordered) {
 		long startTime = System.currentTimeMillis();	
 		InPlaceIntHeapSort.heapSort(array);		
@@ -88,7 +88,7 @@ public class TestSorting {
 			output("In place heap sort failed.");
 			System.exit(1);
 		}
-	} */
+	}
 	
 	static void testObjectBasedHeapSort(int[] array, boolean ordered) {
 		Integer[] intObjects = new Integer[array.length];
